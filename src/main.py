@@ -1,15 +1,15 @@
 import sys
 from PySide6.QtCore import QRect
 from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QWidget
 from attribute_editor import AttributeEditor
+from entity_editor import EntityEditor
+from entity_selection_tree import EntitySelectionTree
 
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
-        self.attribute_editor = None
 
         menu = self.menuBar()
         menu.addMenu("&File")
@@ -20,6 +20,15 @@ class MainWindow(QMainWindow):
         button_action.triggered.connect(self.open_attribute_editor)
 
         menu_actions.addAction(button_action)
+        self.attribute_editor = None
+
+        layout = QHBoxLayout()
+        layout.addWidget(EntitySelectionTree(), 1)
+        layout.addWidget(EntityEditor(), 4)
+
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
     def open_attribute_editor(self):
         self.attribute_editor = AttributeEditor()

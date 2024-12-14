@@ -39,3 +39,4 @@ class AttributeEditor(QWidget):
         layout.addWidget(button)
 
         self.setLayout(layout)
+
